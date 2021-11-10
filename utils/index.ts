@@ -5,6 +5,7 @@ import {
   LAMPORTS_PER_SOL,
   Keypair,
 } from "@solana/web3.js";
+import { message } from "antd";
 
 // *Step 3*: implement a function that gets an account's balance
 const refreshBalance = async (network: Cluster, account: Keypair | null) => {
@@ -32,11 +33,17 @@ const handleAirdrop = async (network: Cluster, account: Keypair | null) => {
       publicKey,
       LAMPORTS_PER_SOL
     );
-    const result = await connection.confirmTransaction(confirmation, "confirmed");
+    const result = await connection.confirmTransaction(
+      confirmation,
+      "confirmed"
+    );
     return await refreshBalance(network, account);
   } catch (error) {
-    console.log(error);
-    return;
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown Error";
+    message.error(
+      `Airdrop failed: ${errorMessage}`
+    );
   }
 };
 

@@ -1,5 +1,5 @@
 import { Badge, Dropdown, Menu, Divider } from "antd";
-import React, { BaseSyntheticEvent } from "react";
+import React, { BaseSyntheticEvent, ReactElement } from "react";
 import {
   DownOutlined,
   UserOutlined,
@@ -19,7 +19,7 @@ type DomEvent = {
   keyPath: Array<string>;
 };
 
-const Layout = ({ children }: { children: JSX.Element }) => {
+const Layout = ({ children }: { children: JSX.Element }): ReactElement => {
   const { network, setNetwork, account, setAccount, setBalance, setMnemonic } =
     useGlobalState();
 

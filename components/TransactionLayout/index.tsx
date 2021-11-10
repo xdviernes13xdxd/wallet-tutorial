@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, ReactElement } from "react";
 import { message } from "antd";
-import { GlobalContext } from "../../context";
+import { useGlobalState } from "../../context";
 import {
   Connection,
   clusterApiUrl,
@@ -40,8 +40,8 @@ const defaultForm: FormT = {
   isSigned: false,
 };
 
-const TransactionModal = () => {
-  const { network, account, balance, setBalance } = useContext(GlobalContext);
+const TransactionModal = (): ReactElement => {
+  const { network, account, balance, setBalance } = useGlobalState();
   const [form, setForm] = useState<FormT>(defaultForm);
   const [sending, setSending] = useState<boolean>(false);
   const [transactionSig, setTransactionSig] = useState<string>("");
@@ -91,14 +91,17 @@ const TransactionModal = () => {
       setTransactionSig(confirmation);
       setSending(false);
 
-      const updatedBalance = await refreshBalance(network, account);
-      setBalance(updatedBalance);
-      message.success(`Transaction confirmed`);
+      if (network) {
+        const updatedBalance = await refreshBalance(network, account);
+        setBalance(updatedBalance);
+        message.success(`Transaction confirmed`);
+      }
     } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown Error";
       message.error(
-        "Transaction failed, please check your inputs and try again"
+        `Transaction failed, please check your inputs: ${errorMessage}`
       );
-      console.log(error);
     }
   };
 
