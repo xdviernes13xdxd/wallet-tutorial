@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import { NextPage } from "next";
 import { Button, Alert, Popconfirm } from "antd";
 import PhraseBox from "../components/PhraseBox";
-import { GlobalContext } from "../context";
+import { useGlobalState } from "../context";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
 
@@ -10,11 +10,10 @@ import { useRouter } from "next/router";
 import * as Bip39 from "bip39";
 import { Keypair } from "@solana/web3.js";
 
-
 const Phrase: NextPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
-  const { setAccount, mnemonic, setMnemonic } = useContext(GlobalContext);
+  const { setAccount, mnemonic, setMnemonic } = useGlobalState();
 
   const router = useRouter();
 
@@ -22,8 +21,8 @@ const Phrase: NextPage = () => {
     // *Step 1*: implement a function that generates a mnemonic when the page renders, and uses it to create a wallet (i.e. account)
     const generatedMnemonic = Bip39.generateMnemonic();
     setMnemonic(generatedMnemonic);
-    
-    const seed = Bip39.mnemonicToSeedSync(generatedMnemonic).slice(0, 32)
+
+    const seed = Bip39.mnemonicToSeedSync(generatedMnemonic).slice(0, 32);
     const newAccount = Keypair.fromSeed(seed);
     setAccount(newAccount);
   }, []);
