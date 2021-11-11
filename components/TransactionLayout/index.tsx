@@ -148,6 +148,7 @@ const TransactionModal = (): ReactElement => {
           <SignatureInput
             onClick={transfer}
             disabled={
+              !balance ||
               form.amount / LAMPORTS_PER_SOL > balance ||
               !form.to ||
               form.amount == 0

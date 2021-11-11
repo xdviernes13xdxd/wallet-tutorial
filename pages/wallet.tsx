@@ -15,8 +15,7 @@ import {
 const { Paragraph } = Typography;
 
 const Wallet: NextPage = () => {
-  const { network, account, balance, setBalance } =
-    useGlobalState();
+  const { network, account, balance, setBalance } = useGlobalState();
   const [visible, setVisible] = useState<boolean>(false);
   const [airdropLoading, setAirdropLoading] = useState<boolean>(false);
 
@@ -70,9 +69,10 @@ const Wallet: NextPage = () => {
 
           <p>
             Connected to{" "}
-            {network === "mainnet-beta"
-              ? network.charAt(0).toUpperCase() + network.slice(1, 7)
-              : network.charAt(0).toUpperCase() + network.slice(1)}
+            {network &&
+              (network === "mainnet-beta"
+                ? network.charAt(0).toUpperCase() + network.slice(1, 7)
+                : network.charAt(0).toUpperCase() + network.slice(1))}
           </p>
           {airdropLoading ? (
             <h2>

@@ -8,7 +8,10 @@ import {
 import { message } from "antd";
 
 // *Step 3*: implement a function that gets an account's balance
-const refreshBalance = async (network: Cluster, account: Keypair | null) => {
+const refreshBalance = async (
+  network: Cluster | undefined,
+  account: Keypair | null
+) => {
   if (!account) return 0;
 
   try {
@@ -17,13 +20,18 @@ const refreshBalance = async (network: Cluster, account: Keypair | null) => {
     const balance = await connection.getBalance(publicKey);
     return balance / LAMPORTS_PER_SOL;
   } catch (error) {
-    console.log(error);
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown Error";
+    message.error(`Balance refresh failed: ${errorMessage}`);
     return 0;
   }
 };
 
 // *Step 4*: implement a function that airdrops SOL into devnet account
-const handleAirdrop = async (network: Cluster, account: Keypair | null) => {
+const handleAirdrop = async (
+  network: Cluster | undefined,
+  account: Keypair | null
+) => {
   if (!account) return;
 
   try {
@@ -41,9 +49,7 @@ const handleAirdrop = async (network: Cluster, account: Keypair | null) => {
   } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : "Unknown Error";
-    message.error(
-      `Airdrop failed: ${errorMessage}`
-    );
+    message.error(`Airdrop failed: ${errorMessage}`);
   }
 };
 

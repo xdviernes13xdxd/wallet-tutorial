@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NextPage } from "next";
 import { Button, Alert, Popconfirm } from "antd";
 import PhraseBox from "../components/PhraseBox";
