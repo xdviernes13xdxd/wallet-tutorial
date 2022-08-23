@@ -11,13 +11,13 @@ const Home: NextPage = () => {
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta charSet="utf-8" />
-        <title>Wallet Tutorial</title>
-        <meta name="description" content="Web3 tutorial for Solana crypto wallet." />
+        <title>Wild3 Wallet</title>
+        <meta name="description" content="Wild3 Solana crypto wallet." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HomeTitle>
-        A simple, non-custodial crypto wallet for managing{" "}
-        <a href="https://solana.com/">Solana</a> digital assets.
+        A simple, non-custodial crypto wallet created by{" "}
+        <a href="https://twitter.com/carnivorous_666" target="_blank" rel="noreferrer">Wild3</a> on Solana blockchain.
       </HomeTitle>
 
       <HomeGrid>
